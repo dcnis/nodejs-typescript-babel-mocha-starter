@@ -1,6 +1,6 @@
 import check from './check';
 
-export default class MyService {
+export default class HomeService {
 
     public static getName(nr: number): Promise<string> {
         return new Promise((resolve, reject) => {
