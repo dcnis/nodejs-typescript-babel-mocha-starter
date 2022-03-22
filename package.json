@@ -7,7 +7,7 @@
     "start": "nodemon --exec babel-node --extensions .ts ./src/main/server.ts",
     "build": "babel --extensions .ts ./src/main/ -d ./dist/",
     "serve": "node dist/server.js",
-    "test": "NODE_ENV=test mocha --check-leaks --require tsconfig-paths/register --require ./src/test/config/babel-register.js --require ./src/test/config/mocha-hooks.js 'src/test/**/*.spec.ts' --recursive "
+    "test": "NODE_ENV=test mocha --check-leaks --require tsconfig-paths/register --require ./src/test/config/babel-register.js --require ./src/test/config/mocha-hooks.js 'src/test/**/*.specs.ts' --recursive "
   },
   "keywords": [],
   "author": "",

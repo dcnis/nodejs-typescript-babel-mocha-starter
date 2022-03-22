@@ -1,6 +1,6 @@
 import express, { application, Application, Request, Response } from 'express';
 import GetNameMiddleware from './middleware/getName.middleware';
-import routes from './routes/index';
+import routes from './routes/routes';
 import Database from './config/db';
 import * as http from 'http';
 
