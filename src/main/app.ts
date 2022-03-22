@@ -23,9 +23,9 @@ export default class App {
   }
 
   public listen(): void {
-    this.httpServer = this.app.listen(3000), () => {
-      console.log(`App listening on the port ${process.env.PORT}`);
-    };
+    this.app.listen(3000, () => {
+      console.log(`App listening on the port 3000`);
+    });
   }
 
   public close(): void {
