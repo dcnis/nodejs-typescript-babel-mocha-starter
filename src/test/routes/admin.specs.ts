@@ -10,7 +10,7 @@ describe('AdminControllerTest', function () {
         request(app.getServer())
             .get('/admin')
             .expect(200)
-            .expect('I am at at the admin page')
+            .expect({data: 'I am at at the admin page'})
             .end(done);
     });
 
