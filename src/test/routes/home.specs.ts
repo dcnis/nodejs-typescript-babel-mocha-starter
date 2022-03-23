@@ -5,6 +5,7 @@ import HomeController from 'controller/home.controller';
 import HomeService from 'services/home.service';
 import sinon from 'sinon';
 import { Request, Response } from 'express';
+import CheckService from 'services/check.service';
 
 
 
@@ -53,10 +54,10 @@ describe('HomeControllerTest', function () {
 
     it('should call homeService',  async function () {
         // GIVEN
-        const homeserviceStub = sinon.createStubInstance(HomeService);
-        homeserviceStub.getName.returns(Promise.resolve('hi'));
-
-        const homeController: HomeController = new HomeController(homeserviceStub);
+        const homeservice = new HomeService(new CheckService());
+        const homeService_getName_stub = sinon.stub(homeservice, 'getName').returns(Promise.resolve('hi'));
+        
+        const homeController: HomeController = new HomeController(homeservice);
 
         const req: Request = {
             params: {
@@ -78,8 +79,8 @@ describe('HomeControllerTest', function () {
         await homeController.getHomepage(req as Request, response as Response);
         
         // THEN
-        sinon.assert.calledOnce(homeserviceStub.getName);
-        sinon.assert.calledWithExactly(homeserviceStub.getName, 1);
+        sinon.assert.calledOnce(homeService_getName_stub);
+        sinon.assert.calledWithExactly(homeService_getName_stub, 1);
 
         sinon.assert.calledOnce(response.status);
         sinon.assert.calledWithExactly(response.status, 200);
@@ -89,10 +90,10 @@ describe('HomeControllerTest', function () {
 
     it('should return 500 if homeService throws error',  async function () {
         // GIVEN
-        const homeserviceStub = sinon.createStubInstance(HomeService);
-        homeserviceStub.getName.returns(Promise.reject('An error occurred'));
+        const homeservice = new HomeService(new CheckService());
+        const homeService_getName_stub = sinon.stub(homeservice, 'getName').returns(Promise.reject('An error occurred'));
 
-        const homeController: HomeController = new HomeController(homeserviceStub);
+        const homeController: HomeController = new HomeController(homeservice);
 
         const req: Request = {
             params: {
@@ -114,8 +115,8 @@ describe('HomeControllerTest', function () {
         await homeController.getHomepage(req as Request, response as Response);
         
         // THEN
-        sinon.assert.calledOnce(homeserviceStub.getName);
-        sinon.assert.calledWithExactly(homeserviceStub.getName, 1);
+        sinon.assert.calledOnce(homeService_getName_stub);
+        sinon.assert.calledWithExactly(homeService_getName_stub, 1);
 
         sinon.assert.calledOnce(response.status);
         sinon.assert.calledWithExactly(response.status, 500);

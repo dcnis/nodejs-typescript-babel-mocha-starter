@@ -1,13 +1,18 @@
-import check from './check';
+import CheckService from './check.service';
+import check from './check.service';
 
 export default class HomeService {
 
-    constructor(){}
+    private checkService: CheckService;
 
-    public getName(nr: number): Promise<string> {
+    constructor(checkService: CheckService){
+        this.checkService = checkService;
+    }
+
+    public getName = (nr: number): Promise<string> => {
         return new Promise((resolve, reject) => {
 
-            if(check.check(nr)){
+            if(this.checkService.check(nr)){
                 resolve(`The number ${nr} is smaller than 5`);
             } else {
                 reject(`Invalid input because the number ${nr} is greater than 5`);
