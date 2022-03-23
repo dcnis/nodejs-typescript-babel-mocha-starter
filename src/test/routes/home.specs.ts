@@ -4,7 +4,7 @@ import {expect} from 'chai';
 import HomeController from 'controller/home.controller';
 import HomeService from 'services/home.service';
 import sinon from 'sinon';
-import express, { Request, Response } from 'express';
+import { Request, Response } from 'express';
 
 
 
@@ -85,9 +85,47 @@ describe('HomeControllerTest', function () {
         sinon.assert.calledWithExactly(response.status, 200);
         sinon.assert.calledOnce(response.json);
         sinon.assert.calledWithExactly(response.json, {data: 'hi'});
-    
-
-
     });
+
+    it('should return 500 if homeService throws error',  async function () {
+        // GIVEN
+        const homeserviceStub = sinon.createStubInstance(HomeService);
+        homeserviceStub.getName.returns(Promise.reject('An error occurred'));
+
+        const homeController: HomeController = new HomeController(homeserviceStub);
+
+        const req: Request = {
+            params: {
+                number: "1"
+            } as unknown
+        } as Request;
+        
+
+        const mockResponse = () => {
+            const res: any = {};
+            res.status = sinon.stub().returns(res);
+            res.json = sinon.stub().returns(res);
+            return res;
+        };
+
+        const response = mockResponse();
+
+        // WHEN
+        await homeController.getHomepage(req as Request, response as Response);
+        
+        // THEN
+        sinon.assert.calledOnce(homeserviceStub.getName);
+        sinon.assert.calledWithExactly(homeserviceStub.getName, 1);
+
+        sinon.assert.calledOnce(response.status);
+        sinon.assert.calledWithExactly(response.status, 500);
+        sinon.assert.calledOnce(response.json);
+        sinon.assert.calledWithExactly(response.json, {error: 'Unexpected error: An error occurred'});
+    });
+
+
+
+
+
 
   });
