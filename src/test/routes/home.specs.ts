@@ -72,11 +72,6 @@ describe('HomeControllerTest', function () {
             return res;
         };
 
-        // const res: Partial<Response> = {
-        //     status: sinon.stub().returns(res),
-        //     json: sinon.spy()
-        // };
-
         const response = mockResponse();
 
         // WHEN
