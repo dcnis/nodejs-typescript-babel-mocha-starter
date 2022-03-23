@@ -12,6 +12,6 @@ const adminController = new AdminController(new AdminService());
 
 router.use("/admin", adminController.getAdmin);
 
-router.use("/", homeController.getHomepage);
+router.use("/:number", homeController.getHomepage);
 
 export default router;

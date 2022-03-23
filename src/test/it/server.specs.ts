@@ -17,7 +17,7 @@ describe('Integrationtest', function () {
         const app = new App();
 
         request(app.getServer())
-            .get('/')
+            .get('/1')
             .expect(200)
             .end(done);
     });

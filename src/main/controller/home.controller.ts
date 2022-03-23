@@ -10,7 +10,9 @@ export default class HomeController {
     }
 
     public getHomepage = (req: Request, res: Response) => {
-        this.homeService.getName(1)
+        const nr: number = Number(req.params.number);
+
+        this.homeService.getName(nr)
             .then((name: string) => {
                 res.status(200).json({data: name});
             })

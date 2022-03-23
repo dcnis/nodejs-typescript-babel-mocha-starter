@@ -29,7 +29,7 @@
               "./src/test/config/babel-register.js",
               "--require",
               "./src/test/config/mocha-hooks.js",
-              "./src/test/**/*.spec.ts",
+              "./src/test/**/*.specs.ts",
               "--recursive"
             ],
             "internalConsoleOptions": "openOnSessionStart",
