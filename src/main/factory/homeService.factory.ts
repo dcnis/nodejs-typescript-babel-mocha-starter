@@ -3,9 +3,15 @@ import HomeService from 'services/home.service';
 import CheckServiceFactory from './checkService.factory';
 
 export class HomeServiceFactory {
-    public static createHomeService(){
-        const checkService: CheckService = CheckServiceFactory.createCheckService();
+    private static homeService: HomeService;
 
-        return new HomeService(checkService);
+    public static createHomeService(){
+        if(this.homeService){
+            return this.homeService;
+        }
+
+        const checkService: CheckService = CheckServiceFactory.createCheckService();
+        this.homeService = new HomeService(checkService);
+        return this.homeService;
     }
 }

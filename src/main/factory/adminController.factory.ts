@@ -3,8 +3,16 @@ import AdminServiceFactory from './adminService.factory';
 import AdminService from 'services/admin.service';
 
 export default class AdminControllerFactory {
+
+    private static adminController: AdminController; 
+
     public static createAdminController(){
+        if(this.adminController){
+            return this.adminController;
+        }
         const adminService: AdminService = AdminServiceFactory.createAdminService();
-        return new AdminController(adminService);
+
+        this.adminController = new AdminController(adminService);
+        return this.adminController;
     }
 }

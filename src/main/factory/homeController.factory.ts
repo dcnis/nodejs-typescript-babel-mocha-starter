@@ -5,8 +5,15 @@ import { HomeServiceFactory } from './homeService.factory';
 
 export default class HomeControllerFactory {
 
+    private static homeController: HomeController;
+
     public static createHomeController(){
+        if(this.homeController){
+            return this.homeController;
+        }
+
         const homeService = HomeServiceFactory.createHomeService();
-        return new HomeController(homeService);
+        this.homeController = new HomeController(homeService);
+        return this.homeController;
     }
 }
