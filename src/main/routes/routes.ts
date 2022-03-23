@@ -1,15 +1,10 @@
 import { Router } from 'express';
-import HomeController from '../controller/home.controller';
-import homeService from '../services/home.service';
-import adminService from '../services/admin.service';
-import AdminController from '../controller/admin.controller';
-import HomeService from '../services/home.service';
-import AdminService from '../services/admin.service';
-import CheckService from 'services/check.service';
+import HomeControllerFactory from 'factory/homeController.factory';
+import AdminControllerFactory from 'factory/adminController.factory';
 
 const router = Router();
-const homeController = new HomeController(new HomeService(new CheckService()));
-const adminController = new AdminController(new AdminService());
+const homeController = HomeControllerFactory.createHomeController();
+const adminController = AdminControllerFactory.createAdminController();
 
 router.use("/admin", adminController.getAdmin);
 
